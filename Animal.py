@@ -5,6 +5,9 @@ class Animal:
         self.hungry_count = 0
         self.food_consumed = 0
 
+    def get_name(self):
+        return self.name
+
     def set_feeding_count(self, feeding_count):
         pass
 
