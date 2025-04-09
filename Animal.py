@@ -8,11 +8,14 @@ class Animal:
     def get_name(self):
         return self.name
 
+    def get_required_food(self):
+        return self.required_food
+
     def set_feeding_count(self, feeding_count):
         pass
 
     def set_hungry_count(self):
-        pass
+        self.hungry_count += 1
 
     def calculate_food_consumed(self):
         pass
