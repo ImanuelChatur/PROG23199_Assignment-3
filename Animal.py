@@ -1,7 +1,7 @@
 class Animal:
     def __init__(self, name, required_food):
         self.name = name
-        self.required_food = 0
+        self.required_food = required_food
         self.hungry_count = 0
         self.food_consumed = 0
 
