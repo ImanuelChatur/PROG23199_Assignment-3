@@ -32,36 +32,38 @@ def feeding_task(cond, animal_list, count):
 
     for i in range(count):
         with cond:
-            time.sleep(.5)
-            #print("Feeding Task Started")
-            #pick random animal, make it hungry
-            print("SELECTING RANDOM ANIMAL!!!!!!!!")
             rand_animal= random.choice(animal_list)
             rand_animal.set_hungry_count()
 
             #While the food source is too low wait for deposit
             while rand_animal.get_required_food() > food_count:
+                print(f'Wait for food: {rand_animal.get_name()} got hungry, not enough food')
                 cond.notify_all()
-                print(f'Food count is {food_count} but {rand_animal.get_name()}'
-                      f' needs {rand_animal.get_required_food()}. refilling')
-                cond.wait()
-            print(f"Now feeding {rand_animal.get_name()}")
+                cond.wait() #Wait for food to be available
+
+            print(f"Feed {rand_animal.get_name()}: {food_count}", end="")
             rand_animal.set_feeding_count(10)
             food_count -= rand_animal.get_required_food()
+            print(f"---> Stock: {food_count}")
+    print("Loop ended")
+    with cond:
+        cond.notify_all()
 
 
 def deposit_task(cond):
     global food_count
     while True:
         with cond:
-            time.sleep(.05)
-            #print("Deposit Task Started")
-            #deposit random amount of food
+            if not any(t.is_alive() for t in threading.enumerate() if t.name == "Feeding Thread"):
+                print("Task is finito!")
+                break
+
+            print(f"\tAdd food: {food_count} Kg ---> ", end="")
             food_count += random.randint(1, 20)
-            print("deposited: Food count is now ", food_count)
-            time.sleep(.5)
-            cond.notify_all()
+            print(f"Stock: {food_count} Kg")
+            cond.notify_all() #Notify
             cond.wait()
+            time.sleep(1)
 
 
 def main():
@@ -72,8 +74,9 @@ def main():
     print("-"*50)
 
     feed_count = int(input("Enter number of animals to be fed: "))
+    print(f"------------------Feeding Begins------------------")
 
-    condition = threading.Condition(lock)
+    condition = threading.Condition()
 
     feed = threading.Thread(name="Feeding Thread",
                             target=feeding_task,
@@ -88,6 +91,7 @@ def main():
 
     feed.join()
     deposit.join()
+    print("Jobs done!")
 
 
 if "__main__" == __name__:
