@@ -4,15 +4,24 @@ class Animal:
         self.required_food = required_food
         self.hungry_count = 0
         self.food_consumed = 0
+        self.feed_count = 0
+
+    def __str__(self):
+        return (f"{self.name} got hungry {self.hungry_count} time(s),"
+                f" fed {self.feed_count} time(s) and"
+                f" consumed {self.food_consumed} Kg food")
 
     def get_name(self):
         return self.name
+    def get_hungry_count(self):
+        return self.hungry_count
 
     def get_required_food(self):
         return self.required_food
 
     def set_feeding_count(self, feeding_count):
-        pass
+        self.feed_count += 1
+        self.food_consumed += feeding_count
 
     def set_hungry_count(self):
         self.hungry_count += 1

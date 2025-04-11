@@ -19,8 +19,10 @@ def list_animals_imanuel():
     return animal_list
 
 
-def most_hungry_imanuel():
-    pass
+def most_hungry_imanuel(animal_list):
+    hungry_list = {a.get_name(): a.get_hungry_count() for a in animal_list}
+    print(hungry_list)
+    return hungry_list
 
 
 def most_amount_fed_imanuel():
@@ -45,7 +47,7 @@ def feeding_task(cond, animal_list, count):
             rand_animal.set_feeding_count(10)
             food_count -= rand_animal.get_required_food()
             print(f"---> Stock: {food_count}")
-    print("Loop ended")
+
     with cond:
         cond.notify_all()
 
@@ -85,13 +87,15 @@ def main():
     deposit = threading.Thread(name="Deposit Thread",
                                target=deposit_task,
                                args=(condition,))
-
     feed.start()
     deposit.start()
 
     feed.join()
     deposit.join()
     print("Jobs done!")
+    most_hungry_imanuel(animal_list)
+    for a in animal_list:
+        print(a)
 
 
 if "__main__" == __name__:
