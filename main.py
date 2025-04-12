@@ -9,7 +9,6 @@ lock = threading.RLock()
 
 
 def list_animals_imanuel():
-
     animal_list = [
         Animal("Elephant", 15),
         Animal("Giraffe", 9),
@@ -34,26 +33,22 @@ def feeding_task(cond, animal_list, count):
 
     for i in range(count):
         with cond:
-            rand_animal= random.choice(animal_list)
+            rand_animal = random.choice(animal_list)
             rand_animal.set_hungry_count()
 
-            #While the food source is too low wait for deposit
             while rand_animal.get_required_food() > food_count:
                 print(f'Wait for food: {rand_animal.get_name()} got hungry, not enough food')
-                cond.notify_all()
-                cond.wait() #Wait for food to be available
+                cond.wait()
 
             print(f"Feed {rand_animal.get_name()}: {food_count}", end="")
             rand_animal.set_feeding_count(10)
             food_count -= rand_animal.get_required_food()
             print(f"---> Stock: {food_count}")
 
-    with cond:
-        cond.notify_all()
-
 
 def deposit_task(cond):
     global food_count
+
     while True:
         with cond:
             if not any(t.is_alive() for t in threading.enumerate() if t.name == "Feeding Thread"):
@@ -63,8 +58,8 @@ def deposit_task(cond):
             print(f"\tAdd food: {food_count} Kg ---> ", end="")
             food_count += random.randint(1, 20)
             print(f"Stock: {food_count} Kg")
-            cond.notify_all() #Notify
-            cond.wait()
+
+            cond.notify_all()  #Notify
             time.sleep(1)
 
 
@@ -73,16 +68,16 @@ def main():
     animal_list = list_animals_imanuel()
 
     print(f"Zoo Animal Feeding System\nDeveloped by: Imanuel Chatur\nStudent Number: 991637637")
-    print("-"*50)
+    print("-" * 50)
 
     feed_count = int(input("Enter number of animals to be fed: "))
     print(f"------------------Feeding Begins------------------")
 
-    condition = threading.Condition()
+    condition = threading.Condition(lock)
 
     feed = threading.Thread(name="Feeding Thread",
                             target=feeding_task,
-                            args=(condition,animal_list,feed_count,))
+                            args=(condition, animal_list, feed_count,))
 
     deposit = threading.Thread(name="Deposit Thread",
                                target=deposit_task,
@@ -92,7 +87,7 @@ def main():
 
     feed.join()
     deposit.join()
-    print("Jobs done!")
+    print("\n\nJobs done!")
     most_hungry_imanuel(animal_list)
     for a in animal_list:
         print(a)
