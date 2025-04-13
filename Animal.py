@@ -13,11 +13,15 @@ class Animal:
 
     def get_name(self):
         return self.name
+
     def get_hungry_count(self):
         return self.hungry_count
 
     def get_required_food(self):
         return self.required_food
+
+    def get_feed_count(self):
+        return self.feed_count
 
     def set_feeding_count(self, feeding_count):
         self.feed_count += 1

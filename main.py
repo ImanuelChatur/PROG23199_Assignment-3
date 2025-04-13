@@ -3,6 +3,7 @@ import threading
 import time
 
 from Animal import Animal
+from ZooManager import ZooManager
 
 food_count = 0
 lock = threading.RLock()
@@ -38,6 +39,7 @@ def feeding_task(cond, animal_list, count):
 
             while rand_animal.get_required_food() > food_count:
                 print(f'Wait for food: {rand_animal.get_name()} got hungry, not enough food')
+
                 cond.wait()
 
             print(f"Feed {rand_animal.get_name()}: {food_count}", end="")
@@ -60,7 +62,7 @@ def deposit_task(cond):
             print(f"Stock: {food_count} Kg")
 
             cond.notify_all()  #Notify
-            time.sleep(1)
+            time.sleep(.5)
 
 
 def main():
@@ -88,9 +90,14 @@ def main():
     feed.join()
     deposit.join()
     print("\n\nJobs done!")
+
+    db = ZooManager()
     most_hungry_imanuel(animal_list)
+
     for a in animal_list:
-        print(a)
+        db.insert_animal(a.get_name(), a.get_hungry_count(), a.get_feed_count())
+
+    print(db.get_animals())
 
 
 if "__main__" == __name__:
