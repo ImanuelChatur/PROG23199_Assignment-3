@@ -39,7 +39,7 @@ def feeding_task(cond, animal_list, count):
 
             while rand_animal.get_required_food() > food_count:
                 print(f'Wait for food: {rand_animal.get_name()} got hungry, not enough food')
-
+                rand_animal.set_hungry_count(1)
                 cond.wait()
 
             print(f"Feed {rand_animal.get_name()}: {food_count}", end="")
