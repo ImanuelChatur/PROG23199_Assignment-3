@@ -26,8 +26,8 @@ class Animal:
     def set_feeding_count(self, feeding_count):
         self.feed_count = feeding_count
 
-    def set_hungry_count(self):
-        self.hungry_count += 1
+    def set_hungry_count(self, hungry_count):
+        self.hungry_count = hungry_count
 
     def calculate_food_consumed(self):
-        pass
+        return self.feed_count * self.required_food
