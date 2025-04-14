@@ -63,8 +63,10 @@ class ZooManager:
         :return:
         """
         query = ("INSERT INTO ZooInfo_IMANUEL"
-                 "(animal_name, hungry_count, total_food_consumed, food_required) VALUES (?, ?, ?, ?)")
-        self.cursor.execute(query, (name, hungry_count, food_consumed, food_required))
+                 "(animal_name, hungry_count, total_food_consumed,"
+                 " food_required) VALUES (?, ?, ?, ?)")
+        self.cursor.execute(query, (name, hungry_count,
+                                    food_consumed, food_required))
         self.conn.commit()
 
     def get_animals(self):

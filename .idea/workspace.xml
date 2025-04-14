@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1c5dd3f-e52b-4fca-8191-b142ecae0b0c" name="Changes" comment="did a bunch of stuff">
+    <list default="true" id="b1c5dd3f-e52b-4fca-8191-b142ecae0b0c" name="Changes" comment="GOOD ENOUGH">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Animal.py" beforeDir="false" afterPath="$PROJECT_DIR$/Animal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AnimalTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnimalTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ZooInfo_Imanuel.db" beforeDir="false" afterPath="$PROJECT_DIR$/ZooInfo_Imanuel.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZooManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZooManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,12 +55,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python tests.Python tests for AnimalTest.test_calculate_food_consumed.executor": "Run",
     "Python tests.Python tests in AnimalTest.py.executor": "Run",
     "Python.main.executor": "Run",
     "Python.regExDemo.executor": "Run",
     "Python.threadCooperationsDemo.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "D:/Downloads/multithread demo",
     "node.js.detected.package.eslint": "true",
@@ -63,11 +70,11 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.inline.completion",
+    "settings.editor.selected.configurable": "preferences.sourceCode.Python",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Imanuel A3" />
       <option name="ENV_FILES" value="" />
@@ -91,6 +98,26 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for AnimalTest.test_calculate_food_consumed" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Imanuel A3" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;AnimalTest.test_calculate_food_consumed&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Python tests for AnimalTest.test_calculate_food_consumed" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -208,7 +235,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744598192139</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="GOOD ENOUGH">
+      <option name="closed" value="true" />
+      <created>1744599989687</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1744599989687</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,7 +260,8 @@
     <MESSAGE value="tests implemented" />
     <MESSAGE value="Docstrings added" />
     <MESSAGE value="did a bunch of stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="did a bunch of stuff" />
+    <MESSAGE value="GOOD ENOUGH" />
+    <option name="LAST_COMMIT_MESSAGE" value="GOOD ENOUGH" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PROG23199_Assignment_3$regExDemo.coverage" NAME="regExDemo Coverage Results" MODIFIED="1744375740053" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads" />

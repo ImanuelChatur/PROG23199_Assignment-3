@@ -41,7 +41,8 @@ def most_hungry_imanuel(animal_list):
     :return: List of the most hungry animals
     """
     most_hungry = max(a.get_hungry_count() for a in animal_list)
-    most_hungry_list = [a for a in animal_list if a.get_hungry_count() == most_hungry]
+    most_hungry_list = [a for a in animal_list if
+                        a.get_hungry_count() == most_hungry]
     return most_hungry_list
 
 
@@ -53,7 +54,8 @@ def most_amount_fed_imanuel(animal_list):
     :return: list of the most fed animals (for ties in case multiple)
     """
     most_fed = max(a.calculate_food_consumed() for a in animal_list)
-    most_fed_list = [a for a in animal_list if a.calculate_food_consumed() == most_fed]
+    most_fed_list = [a for a in animal_list if
+                     a.calculate_food_consumed() == most_fed]
     return most_fed_list
 
 
@@ -84,7 +86,9 @@ def feeding_task(cond, animal_list, count):
             feed_count += 1
             food_count -= rand_animal.get_required_food()
             print(f"---> Stock: {food_count} Kg")
-            print(f"{rand_animal.get_name()} Feed Count: {rand_animal.get_feed_count()}")
+            print(
+                f"{rand_animal.get_name()}"
+                f" Feed Count: {rand_animal.get_feed_count()}")
 
             rand_animal.set_hungry_count(hungry_count)
             rand_animal.set_feeding_count(feed_count)
@@ -103,7 +107,8 @@ def deposit_task(cond):
 
     while True:
         with cond:
-            if not any(t.is_alive() for t in threading.enumerate() if t.name == "Feeding Thread"):
+            if not any(t.is_alive() for t in threading.enumerate()
+                       if t.name == "Feeding Thread"):
                 break
 
             print(f"\tAdd food: {food_count} Kg ---> ", end="")
@@ -132,19 +137,21 @@ def display_animals(animal_list):
     most_hungry = most_hungry_imanuel(animal_list)
     print(", ".join(a.get_name() for a in most_hungry))
 
-    total_food = sum(map(lambda animal: animal.calculate_food_consumed(), animal_list))
+    total_food = sum(map(lambda animal: animal.calculate_food_consumed(),
+                         animal_list))
 
-    print(f"Total food consumed by all {sum(a.get_feed_count() for a in animal_list)} animals: "
+    print(f"Total food consumed by all"
+          f" {sum(a.get_feed_count() for a in animal_list)} animals: "
           f"{total_food} Kg")
 
 
 def main():
     """
     Description:
-        Main program. Starts the threads and inserts animals into DB along with\
+        Main program. Starts the threads and inserts animals into DB along with
         running display method
     """
-    animal_list = list_animals_imanuel() # Initialize animal list
+    animal_list = list_animals_imanuel()  # Initialize animal list
 
     # Prints Welcome screen and get user input
     print(f"\t\t\tZoo Animal Feeding System\n"
@@ -171,8 +178,10 @@ def main():
     db = ZooManager()
     most_hungry_imanuel(animal_list)
 
-    for a in animal_list: # Insert animals into db
-        db.insert_animal(a.get_name(), a.get_hungry_count(), a.calculate_food_consumed(), a.get_required_food())
+    for a in animal_list:  # Insert animals into db
+        db.insert_animal(a.get_name(), a.get_hungry_count(),
+                         a.calculate_food_consumed(),
+                         a.get_required_food())
 
     # Get animal list from Database and send to display animals
     db_list = []
@@ -185,6 +194,7 @@ def main():
     display_animals(db_list)
 
     db.close_db()  # Close db
+
 
 if "__main__" == __name__:
     main()
