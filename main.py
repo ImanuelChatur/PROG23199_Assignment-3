@@ -34,18 +34,37 @@ def list_animals_imanuel():
 
 
 def most_hungry_imanuel(animal_list):
+    """
+    most_hungry_animal:
+        gets the hungriest animal from list
+    :param animal_list: List of animals
+    :return: List of the most hungry animals
+    """
     most_hungry = max(a.get_hungry_count() for a in animal_list)
     most_hungry_list = [a for a in animal_list if a.get_hungry_count() == most_hungry]
     return most_hungry_list
 
 
 def most_amount_fed_imanuel(animal_list):
-    most_fed = max(a.get_feed_count() for a in animal_list)
-    most_fed_list = [a for a in animal_list if a.get_feed_count() == most_fed]
+    """
+    Description:
+        Gets the animal fed the most by KG
+    :param animal_list: List of animals
+    :return: list of the most fed animals (for ties in case multiple)
+    """
+    most_fed = max(a.calculate_food_consumed() for a in animal_list)
+    most_fed_list = [a for a in animal_list if a.calculate_food_consumed() == most_fed]
     return most_fed_list
 
 
 def feeding_task(cond, animal_list, count):
+    """
+    Description:
+        Feeding task for the zoo. Concurrently feeds and deposits
+    :param cond: Conditional lock
+    :param animal_list: List of animals
+    :param count: how many feed loops
+    """
     global food_count
 
     for i in range(count):
@@ -69,6 +88,11 @@ def feeding_task(cond, animal_list, count):
 
 
 def deposit_task(cond):
+    """
+    Description:
+        Concurrently deposits food into food_count
+    :param cond: Conditional lock
+    """
     global food_count
 
     while True:
@@ -85,9 +109,15 @@ def deposit_task(cond):
 
 
 def display_animals(animal_list):
+    """
+    Description:
+        Formatted display of animals to print all details
+    :param animal_list: list of animals
+    """
     print("-" * 20, ": Animal Feeding Summary :", "-" * 20)
     for a in animal_list:
         print(a)
+
     print("The highest amount of food consumed by: ", end="")
     most_fed = most_amount_fed_imanuel(animal_list)
     print(", ".join(a.get_name() for a in most_fed))
@@ -95,16 +125,24 @@ def display_animals(animal_list):
     most_hungry = most_hungry_imanuel(animal_list)
     print(", ".join(a.get_name() for a in most_hungry))
 
-
     total_food = sum(map(lambda animal: animal.calculate_food_consumed(), animal_list))
     print(f"Total food consumed by all {sum(a.get_feed_count() for a in animal_list)} animals: "
           f"{total_food} Kg")
 
-def main():
-    animal_list = list_animals_imanuel()
-    print(f"Zoo Animal Feeding System\nDeveloped by: Imanuel Chatur\nStudent Number: 991637637")
-    print("-" * 50)
 
+def main():
+    """
+    Description:
+        Main program. Starts the threads and inserts animals into DB along with\
+        running display method
+    """
+    animal_list = list_animals_imanuel() # Initialize animal list
+
+    # Prints Welcome screen and get user input
+    print(f"\t\t\tZoo Animal Feeding System\n"
+          f"\t\t\tDeveloped by: Imanuel Chatur\n"
+          f"\t\t\tStudent Number: 991637637")
+    print("-" * 50)
     feed_count = int(input("Enter number of animals to be fed: "))
     print(f"------------------Feeding Begins------------------")
 
@@ -118,7 +156,6 @@ def main():
                                args=(condition,))
     feed.start()
     deposit.start()
-
     feed.join()
     deposit.join()
 
@@ -126,10 +163,20 @@ def main():
     db = ZooManager()
     most_hungry_imanuel(animal_list)
 
-    for a in animal_list:
-        db.insert_animal(a.get_name(), a.get_hungry_count(), a.get_feed_count())
-    display_animals(animal_list)
+    for a in animal_list: # Insert animals into db
+        db.insert_animal(a.get_name(), a.get_hungry_count(), a.calculate_food_consumed(), a.get_required_food())
 
+    # Get animal list from Database and send to display animals
+    db_list = []
+    for d in db.get_animals():
+        a = Animal(d[1], d[4])
+        a.set_hungry_count(d[2])
+        a.set_feeding_count(d[3] // a.get_required_food())
+        db_list.append(a)
+
+    display_animals(db_list)
+
+    db.close_db()  # Close db
 
 if "__main__" == __name__:
     main()

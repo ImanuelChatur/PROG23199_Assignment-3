@@ -35,7 +35,7 @@ class Animal:
     def __str__(self):
         return (f"{self.name} got hungry {self.hungry_count} time(s),"
                 f" fed {self.feed_count} time(s) and"
-                f" consumed {self.food_consumed} Kg food")
+                f" consumed {self.calculate_food_consumed()} Kg food")
 
     def get_name(self):
         return self.name

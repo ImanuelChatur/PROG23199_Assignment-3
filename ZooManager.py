@@ -48,22 +48,24 @@ class ZooManager:
             "animal_id" INTEGER PRIMARY KEY AUTOINCREMENT,
             "animal_name" VARCHAR(20),
             "hungry_count" INT,
-            "total_food_consumed" INT
+            "total_food_consumed" INT,
+            "food_required" INT
         );
         """)
         self.conn.commit()
 
-    def insert_animal(self, name, hungry_count, food_consumed):
+    def insert_animal(self, name, hungry_count, food_consumed, food_required):
         """
-
+        :param food_required:
         :param name:
         :param hungry_count:
         :param food_consumed:
         :return:
         """
         query = ("INSERT INTO ZooInfo_IMANUEL"
-                 "(animal_name, hungry_count, total_food_consumed) VALUES (?, ?, ?)")
-        self.cursor.execute(query, (name, hungry_count, food_consumed))
+                 "(animal_name, hungry_count, total_food_consumed, food_required) VALUES (?, ?, ?, ?)")
+        self.cursor.execute(query, (name, hungry_count, food_consumed, food_required))
+        self.conn.commit()
 
     def get_animals(self):
         """
