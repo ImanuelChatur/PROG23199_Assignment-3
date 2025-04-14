@@ -74,17 +74,23 @@ def feeding_task(cond, animal_list, count):
             feed_count = rand_animal.get_feed_count()
 
             while rand_animal.get_required_food() > food_count:
-                print(f'Wait for food: {rand_animal.get_name()} got hungry, not enough food')
+                print(f'Wait for food: {rand_animal.get_name()}'
+                      f' got hungry, not enough food')
                 hungry_count += 1
+                cond.notify_all()
                 cond.wait()
 
             print(f"Feed {rand_animal.get_name()}: {food_count} Kg", end="")
             feed_count += 1
             food_count -= rand_animal.get_required_food()
             print(f"---> Stock: {food_count} Kg")
+            print(f"{rand_animal.get_name()} Feed Count: {rand_animal.get_feed_count()}")
 
             rand_animal.set_hungry_count(hungry_count)
             rand_animal.set_feeding_count(feed_count)
+
+    with cond:
+        cond.notify_all()
 
 
 def deposit_task(cond):
@@ -105,6 +111,7 @@ def deposit_task(cond):
             print(f"Stock: {food_count} Kg")
 
             cond.notify_all()  # Notify
+            cond.wait()
             time.sleep(.5)
 
 
@@ -126,6 +133,7 @@ def display_animals(animal_list):
     print(", ".join(a.get_name() for a in most_hungry))
 
     total_food = sum(map(lambda animal: animal.calculate_food_consumed(), animal_list))
+
     print(f"Total food consumed by all {sum(a.get_feed_count() for a in animal_list)} animals: "
           f"{total_food} Kg")
 
