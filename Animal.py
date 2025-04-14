@@ -1,4 +1,30 @@
+# Assignment: 3
+# Course: PROG23199
+# Submission date: 2025-04-13
+# Name: Imanuel Chatur
+# Sheridan ID: 991637637
+# Instructors name: Syed Tanbeer
 class Animal:
+    """
+    Description:
+        This class has functionalities for the Animal class
+
+    Methods:
+        get_name():
+            returns name
+        get_hungry_count():
+            returns hungry count
+        get_required_food():
+            returns required food
+        get_feed_count():
+            returns feed count
+        set_feeding_count():
+            set feeding count
+        set_hungry_count():
+            set hungry count
+        calculate_food_consumed():
+            calculates food consumed
+    """
     def __init__(self, name, required_food):
         self.name = name
         self.required_food = required_food

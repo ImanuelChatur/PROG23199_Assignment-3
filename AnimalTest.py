@@ -1,3 +1,9 @@
+# Assignment: 3
+# Course: PROG23199
+# Submission date: 2025-04-13
+# Name: Imanuel Chatur
+# Sheridan ID: 991637637
+# Instructors name: Syed Tanbeer
 import pytest
 from Animal import Animal
 

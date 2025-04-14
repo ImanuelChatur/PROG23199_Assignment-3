@@ -1,3 +1,9 @@
+# Assignment: 3
+# Course: PROG23199
+# Submission date: 2025-04-13
+# Name: Imanuel Chatur
+# Sheridan ID: 991637637
+# Instructors name: Syed Tanbeer
 import random
 import threading
 import time
@@ -5,11 +11,19 @@ import time
 from Animal import Animal
 from ZooManager import ZooManager
 
+# Declare lock and global food_count
 food_count = 0
 lock = threading.RLock()
 
 
 def list_animals_imanuel():
+    """
+    Description:
+        Pre-generated list of animals
+
+    :returns
+        animal_list (Animal): List of animals
+    """
     animal_list = [
         Animal("Elephant", 15),
         Animal("Giraffe", 9),
@@ -81,8 +95,10 @@ def display_animals(animal_list):
     most_hungry = most_hungry_imanuel(animal_list)
     print(", ".join(a.get_name() for a in most_hungry))
 
+
+    total_food = sum(map(lambda animal: animal.calculate_food_consumed(), animal_list))
     print(f"Total food consumed by all {sum(a.get_feed_count() for a in animal_list)} animals: "
-          f"{sum(a.calculate_food_consumed() for a in animal_list)} Kg")
+          f"{total_food} Kg")
 
 def main():
     animal_list = list_animals_imanuel()
